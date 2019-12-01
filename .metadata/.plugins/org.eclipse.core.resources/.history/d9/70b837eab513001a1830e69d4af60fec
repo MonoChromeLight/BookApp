@@ -1,0 +1,34 @@
+function bookSearch() {
+	var search = document.getElementById('search').value
+	document.getElementById('results').innerHTML=""
+	console.log(search)
+
+	$.ajax({
+		url: "http://openlibrary.org/search.json?q="+search,
+		dataType: "json",
+
+		success:function(data) {
+			for (var i = 0; i<data.docs.length; i++) {
+				console.log(String(data.docs[i].author));
+				//if(data.docs[i].author.includes("undefined")){
+					if (typeof data.docs[i].cover_i !== 'undefined'){
+						results.innerHTML +=
+						 "<div class=\"col-md-4\"><div class=\" card\"><div class=\"card-header\"><h3>"+data.docs[i].title+"</h3></div></div>"+"<div><img src=\"http://covers.openlibrary.org/b/id/"+data.docs[i].cover_i+"-M.jpg\" /></div>"+"<div class=\"card-footer\"><h4>"+data.docs[i].author_name+"</h4></div></div>"
+						//}
+						console.log(data.docs[i].cover_i);
+					}
+			}
+			
+		},
+
+		type:'GET'
+	});
+}
+function selectYear() {
+	//"first_publish_year"
+	this.val();
+	console.log($(this).val());
+}
+document.getElementById('button').addEventListener('click', bookSearch,false);
+
+//document.getElementById('dropdown').addEventListener('change', selectYear ,false);

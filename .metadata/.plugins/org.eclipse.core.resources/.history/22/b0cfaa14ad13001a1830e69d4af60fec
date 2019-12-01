@@ -1,0 +1,21 @@
+function bookSearch() {
+	var search = document.getElementById('search').value
+	document.getElementById('results').innerHTML=""
+	console.log(search)
+
+	$.ajax({
+		url: "http://openlibrary.org/search.json?q="+search,
+		dataType: "json",
+
+		success:function(data) {
+			for (var i = 0; data.docs.length; i++) {
+				results.innerHTML += "<h2>"+ data.docs[i].title+"</h2>"+"<h4>"+data.docs[i].author_name+"</h4>"+"<div>"+data.docs[i].cover_i+"</div>"
+			}
+			console.log(search);
+		},
+
+		type:'GET'
+	});
+}
+
+document.getElementById('button').addEventListener('click', bookSearch,false);
